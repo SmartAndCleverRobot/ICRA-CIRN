@@ -251,6 +251,9 @@ def main_eval_seen(args, create_shared_model, init_agent, load_model):
             p.join()
     model = 'seen' + load_model.split('_')[-4]
     result_file = os.path.join('result',args.load_model+'.json')
+    if("pretrained_models" in load_model):
+        model = 'seen'
+        result_file = os.path.join('result',load_model.split("/")[1].split(".")[0]+'.json')
     file_data = get_json_data(result_file)
     file_data[model] = tracked_means
     write_json_data(file_data, result_file)
@@ -387,8 +390,12 @@ def main_eval_unseen(args, create_shared_model, init_agent, load_model):
             time.sleep(0.1)
             p.join()
 
+
     model = 'unseen' + load_model.split('_')[-4]
     result_file = os.path.join('result',args.load_model+'.json')
+    if("pretrained_models" in load_model):
+        model = 'unseen'
+        result_file = os.path.join('result',load_model.split("/")[1].split(".")[0]+'.json')
     file_data = get_json_data(result_file)
     file_data[model] = tracked_means
     write_json_data(file_data, result_file)
@@ -423,6 +430,9 @@ def main_eval_unseen(args, create_shared_model, init_agent, load_model):
 
 
 def full_main_eval_unseen(args, create_shared_model, init_agent):
+    if ("pretrained_models" in args.load_model):
+        main_eval_unseen(args, create_shared_model, init_agent, args.load_model)
+        return
     trained_model = args.save_model_dir
     fold = os.path.join(trained_model, args.load_model) 
     dat_file =[i for i in os.listdir(fold) if i.split('.')[1] == 'dat'] 
@@ -431,6 +441,9 @@ def full_main_eval_unseen(args, create_shared_model, init_agent):
         main_eval_unseen(args, create_shared_model, init_agent, load_model)
 
 def full_main_eval_seen(args, create_shared_model, init_agent):
+    if ("pretrained_models" in args.load_model):
+        main_eval_seen(args, create_shared_model, init_agent, args.load_model)
+        return
     trained_model = args.save_model_dir
     fold = os.path.join(trained_model, args.load_model) 
     dat_file =[i for i in os.listdir(fold) if i.split('.')[1] == 'dat'] 
