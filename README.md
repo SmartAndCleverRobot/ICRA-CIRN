@@ -1,4 +1,4 @@
-# Zero-Shot Object Goal Visual Navigation
+# Zero-Shot Object Goal Visual Navigation With Class-Independent Relationship Network
 
 This implementation is modeified based on [SSNet](https://github.com/pioneer-innovation/Zero-Shot-Object-Navigation) and [SAVN](https://github.com/allenai/savn).
 
